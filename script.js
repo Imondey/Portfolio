@@ -79,4 +79,46 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+
+  // Modal functionality
+  const modal = document.getElementById('certModal');
+  const modalImg = document.getElementById('modalImage');
+  const closeModal = document.querySelector('.close-modal');
+
+  // Close modal when clicking the close button
+  if (closeModal) {
+    closeModal.addEventListener('click', () => {
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto'; // Re-enable scrolling
+    });
+  }
+
+  // Close modal when clicking outside the image
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+    });
+  }
+
+  // Close modal with ESC key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal) {
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+  });
+
+  // Open modal function
+  window.openModal = function(cardElement) {
+    const imgSrc = cardElement.querySelector('img').src;
+    const imgAlt = cardElement.querySelector('img').alt;
+    
+    modalImg.src = imgSrc;
+    modalImg.alt = imgAlt;
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden'; // Prevent scrolling
+  }
 });

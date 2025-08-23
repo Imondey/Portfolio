@@ -69,11 +69,28 @@
     <section class="section certifications reveal" id="certifications">
       <div class="container">
         <h2>Certifications</h2>
-        <ul class="cert-list">
-          <li><i class="fas fa-certificate"></i>AI Fundamentals - Microsoft</li>
-          <li><i class="fas fa-certificate"></i>Deep Learning - NVIDIA DLI</li>
-          <li><i class="fas fa-certificate"></i>Full Stack Web Development - Coursera</li>
-        </ul>
+        <div class="cert-grid">
+          <div class="cert-card" onclick="openModal(this)">
+            <img src="assets/images/microsoft-cert.jpg" alt="Microsoft AI Fundamentals Certificate">
+            <h3>AI Fundamentals - Microsoft</h3>
+          </div>
+          <div class="cert-card" onclick="openModal(this)">
+            <img src="assets/images/nvidia-cert.jpg" alt="NVIDIA Deep Learning Certificate">
+            <h3>Deep Learning - NVIDIA DLI</h3>
+          </div>
+          <div class="cert-card" onclick="openModal(this)">
+            <img src="assets/images/coursera-cert.jpg" alt="Coursera Full Stack Certificate">
+            <h3>Full Stack Web Development - Coursera</h3>
+          </div>
+          <div class="cert-card" onclick="openModal(this)">
+            <img src="assets/images/coursera-cert.jpg" alt="Coursera Full Stack Certificate">
+            <h3>Full Stack Web Development - Coursera</h3>
+          </div>
+          <div class="cert-card" onclick="openModal(this)">
+            <img src="assets/images/ibm-cert.jpg" alt="IBM Certificate">
+            <h3>Full Stack Web Development - IBM</h3>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -100,6 +117,14 @@
       <p>© 2025 Imon Dey </p>
     </div>
   </footer>
+
+  <!-- Modal for certificate preview -->
+  <div class="modal" id="certModal">
+    <div class="modal-content">
+      <span class="close-modal"><i class="fas fa-times"></i></span>
+      <img id="modalImage" src="" alt="Certificate Preview">
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
