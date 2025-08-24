@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
   const words = [
     "Hi, I’m Imon Dey",
-    "AI/ML Innovator",
-    "Full Stack Developer",
-    "Hackathon Champion"
+    "B.Tech in Information Technology",
+    "Problem Solver",
+    "Tech Enthusiast",
   ];
   let i = 0, j = 0, isDeleting = false, currentWord = "";
   const typingElement = document.querySelector(".typing");
