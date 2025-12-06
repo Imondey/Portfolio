@@ -31,6 +31,25 @@ document.addEventListener("DOMContentLoaded", () => {
     type();
   }
 
+  // --- HAMBURGER MENU LOGIC (NEW) ---
+  const hamburger = document.querySelector(".hamburger");
+  const navMenu = document.querySelector(".nav-links");
+
+  if (hamburger && navMenu) {
+    hamburger.addEventListener("click", () => {
+      hamburger.classList.toggle("active");
+      navMenu.classList.toggle("active");
+    });
+
+    // Close menu when clicking a link
+    document.querySelectorAll(".nav-links a").forEach(n => 
+      n.addEventListener("click", () => {
+        hamburger.classList.remove("active");
+        navMenu.classList.remove("active");
+      })
+    );
+  }
+
   // Intersection Observer for reveal animations
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -85,15 +104,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalImg = document.getElementById('modalImage');
   const closeModal = document.querySelector('.close-modal');
 
-  // Close modal when clicking the close button
   if (closeModal) {
     closeModal.addEventListener('click', () => {
       modal.style.display = 'none';
-      document.body.style.overflow = 'auto'; // Re-enable scrolling
+      document.body.style.overflow = 'auto'; 
     });
   }
 
-  // Close modal when clicking outside the image
   if (modal) {
     modal.addEventListener('click', (e) => {
       if (e.target === modal) {
@@ -103,7 +120,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Close modal with ESC key
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal) {
       modal.style.display = 'none';
@@ -111,7 +127,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Open modal function
   window.openModal = function(cardElement) {
     const imgSrc = cardElement.querySelector('img').src;
     const imgAlt = cardElement.querySelector('img').alt;
@@ -119,6 +134,6 @@ document.addEventListener("DOMContentLoaded", () => {
     modalImg.src = imgSrc;
     modalImg.alt = imgAlt;
     modal.style.display = 'block';
-    document.body.style.overflow = 'hidden'; // Prevent scrolling
+    document.body.style.overflow = 'hidden';
   }
 });
