@@ -5,11 +5,574 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Portfolio of Imon Dey - AI/ML Enthusiast & Full Stack Developer">
   <title>Imon Dey - Portfolio</title>
-  <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Root Variables & Theme Configuration */
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1e40af;
+      --bg-light: #f8fafc;
+      --bg-dark: #020617; /* Deepened dark mode body background */
+      --text-light: #1e293b;
+      --text-dark: #f8fafc;
+      --card-bg-light: #ffffff;
+      --card-bg-dark: #1e293b;
+      --white: #ffffff;
+      --font: 'Inter', sans-serif;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    [data-theme="light"] {
+      --bg: var(--bg-light);
+      --text: var(--text-light);
+      --card-bg: var(--card-bg-light);
+      --card-text: var(--text-light);
+      --header-bg: var(--white);
+      --header-text: var(--text-light);
+      --border: #e2e8f0;
+    }
+
+    [data-theme="dark"] {
+      --bg: var(--bg-dark);
+      --text: var(--text-dark);
+      --card-bg: var(--card-bg-dark);
+      --card-text: var(--text-dark);
+      --header-bg: #0f172a; /* Nav bar stands out against the deeper body */
+      --header-text: var(--text-dark);
+      --border: #1e293b; /* Softer border for better dark mode contrast */
+    }
+
+    /* Global Resets */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font);
+      background-color: var(--bg);
+      color: var(--text);
+      transition: background 0.3s ease, color 0.3s ease;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: var(--text);
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: var(--primary);
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+      padding: 1.5rem 0;
+    }
+
+    /* Header & Navigation */
+    header {
+      background: var(--header-bg);
+      color: var(--header-text);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: var(--shadow);
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav h1 {
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      color: var(--header-text);
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .hamburger {
+      display: none;
+      cursor: pointer;
+    }
+
+    .bar {
+      display: block;
+      width: 25px;
+      height: 3px;
+      margin: 5px auto;
+      transition: all 0.3s ease-in-out;
+      background-color: var(--header-text);
+    }
+
+    #theme-toggle {
+      background: transparent;
+      border: none;
+      color: var(--header-text);
+      font-size: 1.25rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    #theme-toggle:hover {
+      transform: scale(1.1);
+      color: var(--primary);
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)), url('assets/images/hero-bg.jpg') no-repeat center center/cover;
+      color: var(--white);
+      text-align: center;
+      padding: 6rem 1rem;
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-img-container {
+      margin-bottom: 2rem;
+      display: inline-block;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .profile-pic {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--primary);
+      box-shadow: 0 0 25px rgba(37, 99, 235, 0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .profile-pic:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 40px rgba(37, 99, 235, 0.7);
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .hero h2 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      margin-bottom: 1.5rem;
+      color: #cbd5e1;
+    }
+
+    .typing {
+      font-weight: 700;
+      font-size: 2.75rem;
+      color: var(--white);
+      /* Increased from 3.5rem to accommodate 2 lines without jumping */
+      min-height: 6rem; 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: var(--primary);
+      color: var(--white);
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.375rem;
+      font-weight: 600;
+      transition: background 0.3s ease, transform 0.2s ease, color 0.3s ease;
+      border: 1px solid var(--primary);
+    }
+
+    .btn:hover {
+      background: var(--primary-hover);
+      border-color: var(--primary-hover);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      background: var(--primary);
+      color: var(--white);
+      border-color: var(--primary);
+    }
+
+    .btn-small {
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+      flex: 1;
+    }
+
+    /* Sections */
+    .section {
+      padding: 5rem 0;
+    }
+
+    .section h2 {
+      font-size: 2.25rem;
+      margin-bottom: 2.5rem;
+      text-align: center;
+      font-weight: 700;
+      position: relative;
+    }
+    
+    .section h2::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: var(--primary);
+      margin: 10px auto 0;
+      border-radius: 2px;
+    }
+
+    .section p {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      color: var(--text);
+    }
+
+    /* Projects Grid */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      color: var(--card-text);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .card-content {
+      flex-grow: 1;
+    }
+
+    .card h3 {
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+      color: var(--card-text);
+    }
+
+    .card p {
+      text-align: left;
+      font-size: 1rem;
+      color: var(--text);
+      opacity: 0.9;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    /* Certifications Grid */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-auto-rows: 1fr; /* Forces all rows to be exactly the same height */
+      gap: 2rem;
+    }
+
+    .cert-card {
+      background: var(--card-bg);
+      border-radius: 0.75rem;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .cert-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .cert-card img {
+      width: 100%;
+      height: 240px; /* Base height */
+      flex-grow: 1; /* Allows the image to expand and fill the extra space */
+      object-fit: cover;
+      border-bottom: 3px solid var(--primary);
+    }
+
+    .cert-card h3 {
+      color: var(--card-text);
+      padding: 1.25rem 1rem;
+      font-size: 1rem;
+      text-align: center;
+      font-weight: 600;
+      flex-shrink: 0;
+      flex-grow: 0; /* Ensures the text box never stretches vertically */
+    }
+
+    /* Resume Section */
+    .resume .container {
+      text-align: center;
+      background: var(--card-bg);
+      padding: 3rem;
+      border-radius: 1rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+    .resume p {
+      margin-bottom: 1.5rem;
+    }
+
+    /* Contact Section */
+    .contact .container {
+      text-align: center;
+    }
+    
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+      margin-top: 2rem;
+    }
+    
+    .contact-links a {
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      transition: background 0.3s;
+    }
+    
+    .contact-links a:hover {
+      background: rgba(37, 99, 235, 0.1);
+    }
+    
+    .contact i {
+      color: var(--primary);
+      font-size: 1.5rem;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--header-bg);
+      color: var(--header-text);
+      text-align: center;
+      padding: 2rem 0;
+      border-top: 1px solid var(--border);
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    /* Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.5, 0, 0, 1), transform 0.8s cubic-bezier(0.5, 0, 0, 1);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(15, 23, 42, 0.95);
+      z-index: 1100;
+      overflow-y: auto;
+      cursor: pointer;
+      padding: 20px;
+    }
+
+    .modal-content {
+      position: relative;
+      margin: 5vh auto;
+      width: 90%;
+      max-width: 900px;
+      background: transparent;
+      animation: modalFadeIn 0.3s ease;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-content img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      cursor: default;
+      display: block;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+
+    .close-modal {
+      position: fixed;
+      top: 25px;
+      right: 25px;
+      color: var(--white);
+      font-size: 20px;
+      cursor: pointer;
+      background: var(--primary);
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease, background 0.3s;
+      z-index: 1200;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .close-modal:hover {
+      transform: scale(1.1);
+      background: var(--primary-hover);
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+      .hamburger {
+        display: block;
+        z-index: 1001;
+      }
+
+      .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+      }
+      .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+      }
+      .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+      }
+
+      .nav-links {
+        position: fixed;
+        left: -100%;
+        top: 60px; /* Adjusted to sit right below header */
+        flex-direction: column;
+        background-color: var(--header-bg);
+        width: 100%;
+        text-align: center;
+        transition: 0.3s ease-in-out;
+        padding: 2rem 0;
+        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        height: auto;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-links.active {
+        left: 0;
+      }
+
+      .hero h2 {
+        font-size: 2.2rem;
+      }
+      
+      .typing {
+        font-size: 1.75rem;
+        /* Increased to accommodate 2 lines on mobile without jumping */
+        min-height: 5rem; 
+      }
+
+      .profile-pic {
+        width: 150px;
+        height: 150px;
+      }
+
+      .project-grid, .cert-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-content {
+        width: 95%;
+        margin: 10vh auto;
+      }
+
+      .close-modal {
+        width: 40px;
+        height: 40px;
+        top: 15px;
+        right: 15px;
+      }
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -41,7 +604,7 @@
     <section class="hero" id="home">
       <div class="container">
         <div class="hero-img-container reveal">
-          <img src="assets/images/profile.jpg" alt="Imon Dey" class="profile-pic">
+          <img src="assets/images/profile.jpg" alt="Imon Dey" class="profile-pic" onerror="this.src='https://via.placeholder.com/180x180?text=Profile'">
         </div>
 
         <h2 class="typing" aria-live="polite"></h2>
@@ -61,18 +624,55 @@
       <div class="container">
         <h2>Projects</h2>
         <div class="project-grid">
+          
+          <!-- Project 1 (Updated from Resume) -->
           <div class="card">
-            <h3>AI-Powered Chatbot</h3>
-            <p>Developed an intelligent chatbot using NLP and React for enhanced user interaction.</p>
+            <div class="card-content">
+              <h3>Termsly Intelligent Policy Analyzer</h3>
+              <p>A privacy-focused tool designed to scan website Terms of Service and Privacy Policies. It uses NLP to detect risky clauses, summarize complex legal jargon, and generate easy-to-read PDF reports with ratings.</p>
+            </div>
+            <div class="card-actions">
+              <a href="https://github.com/Imondey" target="_blank" rel="noopener noreferrer" class="btn btn-small">
+                <i class="fab fa-github"></i> Source Code
+              </a>
+              <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-small btn-outline">
+                <i class="fas fa-external-link-alt"></i> Visit App
+              </a>
+            </div>
           </div>
+
+          <!-- Project 2 (Updated from Resume) -->
           <div class="card">
-            <h3>E-commerce Platform</h3>
-            <p>Built a full-stack e-commerce solution with Node.js, MongoDB, and Next.js.</p>
+            <div class="card-content">
+              <h3>JobCheck - Fake Job Detection</h3>
+              <p>A machine-learning-powered web application designed to help job seekers identify potentially fraudulent job postings by analyzing job descriptions. Includes an admin dashboard and secure user authentication.</p>
+            </div>
+            <div class="card-actions">
+              <a href="https://github.com/Imondey" target="_blank" rel="noopener noreferrer" class="btn btn-small">
+                <i class="fab fa-github"></i> Source Code
+              </a>
+              <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-small btn-outline">
+                <i class="fas fa-external-link-alt"></i> Visit App
+              </a>
+            </div>
           </div>
+
+          <!-- Project 3 -->
           <div class="card">
-            <h3>ASL Detector</h3>
-            <p>Created a Computer vision and NLP tool using Python, OpenCV and Mediapipe for real-time American Sign Language Detection, calculate arithmetic operations and convert into English voice.</p>
+            <div class="card-content">
+              <h3>ASL Real-Time Detector</h3>
+              <p>Created a Computer vision and NLP tool using Python, OpenCV, and Mediapipe for real-time American Sign Language Detection. Calculates arithmetic operations and converts output into English voice.</p>
+            </div>
+            <div class="card-actions">
+              <a href="https://github.com/Imondey" target="_blank" rel="noopener noreferrer" class="btn btn-small">
+                <i class="fab fa-github"></i> Source Code
+              </a>
+              <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-small btn-outline">
+                <i class="fas fa-external-link-alt"></i> Visit App
+              </a>
+            </div>
           </div>
+
         </div>
       </div>
     </section>
@@ -82,27 +682,27 @@
         <h2>Certifications</h2>
         <div class="cert-grid">
           <div class="cert-card" onclick="openModal(this)">
-            <img src="assets/images/microsoft-cert.jpg" alt="Microsoft Certificate">
+            <img src="assets/images/microsoft-cert.jpg" alt="Microsoft Certificate" onerror="this.src='https://via.placeholder.com/400x250?text=Certificate+Preview'">
             <h3>Microsoft Certified: Azure AI Fundamentals</h3>
           </div>
           <div class="cert-card" onclick="openModal(this)">
-            <img src="assets/images/oracle-cert.jpg" alt="Oracle Certificate">
-            <h3>Oracle Certified: Databases for developers (Foundations)</h3>
+            <img src="assets/images/oracle-cert.jpg" alt="Oracle Certificate" onerror="this.src='https://via.placeholder.com/400x250?text=Certificate+Preview'">
+            <h3>Oracle Certified: Databases for developers</h3>
           </div>
           <div class="cert-card" onclick="openModal(this)">
-            <img src="assets/images/ibm-cert.jpg" alt="IBM Certificate">
-            <h3>IBM SkillsBuild: Machine Learning for Data Science Projects</h3>
+            <img src="assets/images/ibm-cert.jpg" alt="IBM Certificate" onerror="this.src='https://via.placeholder.com/400x250?text=Certificate+Preview'">
+            <h3>IBM SkillsBuild: ML for Data Science</h3>
           </div>
           <div class="cert-card" onclick="openModal(this)">
-            <img src="assets/images/tcs-cert.jpg" alt="TCS Certificate">
+            <img src="assets/images/tcs-cert.jpg" alt="TCS Certificate" onerror="this.src='https://via.placeholder.com/400x250?text=Certificate+Preview'">
             <h3>TCS iON Career Edge- Young Professional</h3>
           </div>
           <div class="cert-card" onclick="openModal(this)">
-            <img src="assets/images/nvidia-cert.jpg" alt="NVIDIA Certificate">
+            <img src="assets/images/nvidia-cert.jpg" alt="NVIDIA Certificate" onerror="this.src='https://via.placeholder.com/400x250?text=Certificate+Preview'">
             <h3>NVIDIA Certificate</h3>
           </div>
           <div class="cert-card" onclick="openModal(this)">
-            <img src="assets/images/coursera-cert.jpg" alt="AWS Certificate">
+            <img src="assets/images/coursera-cert.jpg" alt="AWS Certificate" onerror="this.src='https://via.placeholder.com/400x250?text=AWS+Certificate'">
             <h3>AWS Certified</h3>
           </div>
         </div>
@@ -112,34 +712,197 @@
     <section class="section resume reveal" id="resume">
       <div class="container">
         <h2>Resume</h2>
-        <p>Download my updated resume:</p>
-        <a href="resume.pdf" class="btn" download aria-label="Download resume">Download Resume</a>
+        <p>Interested in learning more about my experience? Download my latest resume below.</p>
+        <a href="resume.pdf" class="btn" download aria-label="Download resume">
+          <i class="fas fa-file-download"></i> Download Resume
+        </a>
       </div>
     </section>
 
     <section class="section contact reveal" id="contact">
       <div class="container">
         <h2>Contact</h2>
-        <p><a href="mailto:imondey2004@gmail.com" target="_blank" rel="noopener"><i class="fas fa-envelope"></i> imondey2004@gmail.com</a></p>
-        <p><a href="https://github.com/Imondey" target="_blank" rel="noopener"><i class="fab fa-github"></i> Connect in Github</a></p>
-        <p><a href="https://www.linkedin.com/in/imon-dey-4223502a8/" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i> Follow on Linkedin</a></p>
+        <p>Let's build something amazing together!</p>
+        <div class="contact-links">
+          <a href="mailto:imondey2004@gmail.com" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-envelope"></i> imondey2004@gmail.com
+          </a>
+          <a href="https://github.com/Imondey" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-github"></i> github.com/Imondey
+          </a>
+          <a href="https://www.linkedin.com/in/imon-dey-4223502a8/" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-linkedin"></i> linkedin.com/in/imon-dey
+          </a>
+        </div>
       </div>
     </section>
   </main>
 
   <footer>
     <div class="container">
-      <p>© 2025 Imon Dey </p>
+      <p>© <span id="currentYear"></span> Imon Dey. All Rights Reserved.</p>
     </div>
   </footer>
 
+  <!-- Fullscreen Certificate Modal -->
   <div class="modal" id="certModal">
     <div class="modal-content">
-      <span class="close-modal"><i class="fas fa-times"></i></span>
+      <span class="close-modal" aria-label="Close modal"><i class="fas fa-times"></i></span>
       <img id="modalImage" src="" alt="Certificate Preview">
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Set Copyright Year
+      document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+      // Typing Effect Logic
+      const words = [
+        "Hi, I’m Imon Dey",
+        "B.Tech in Information Technology",
+        "Problem Solver",
+        "Tech Enthusiast",
+      ];
+      let i = 0, j = 0, isDeleting = false, currentWord = "";
+      const typingElement = document.querySelector(".typing");
+
+      function type() {
+        if (!typingElement) return;
+        currentWord = words[i];
+        
+        // Prevent substring error
+        if(currentWord) {
+            typingElement.textContent = isDeleting
+              ? currentWord.substring(0, j--)
+              : currentWord.substring(0, j++);
+        }
+
+        if (!isDeleting && j === currentWord.length + 1) {
+          isDeleting = true;
+          setTimeout(type, 1200);
+        } else if (isDeleting && j === 0) {
+          isDeleting = false;
+          i = (i + 1) % words.length;
+          setTimeout(type, 400);
+        } else {
+          setTimeout(type, isDeleting ? 40 : 80); // slightly smoother timing
+        }
+      }
+
+      if (typingElement) type();
+
+      // Hamburger Menu Logic
+      const hamburger = document.querySelector(".hamburger");
+      const navMenu = document.querySelector(".nav-links");
+
+      if (hamburger && navMenu) {
+        hamburger.addEventListener("click", () => {
+          hamburger.classList.toggle("active");
+          navMenu.classList.toggle("active");
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll(".nav-links a").forEach(n => 
+          n.addEventListener("click", () => {
+            hamburger.classList.remove("active");
+            navMenu.classList.remove("active");
+          })
+        );
+      }
+
+      // Intersection Observer for scroll reveal animations
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+            // Optional: unobserve if you only want it to animate once
+            // observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+
+      // Theme Toggle Logic
+      const themeToggle = document.getElementById("theme-toggle");
+      const html = document.documentElement;
+      const savedTheme = localStorage.getItem("theme") || "light";
+      html.dataset.theme = savedTheme;
+      updateThemeIcon(savedTheme);
+
+      if (themeToggle) {
+        themeToggle.addEventListener("click", () => {
+          const newTheme = html.dataset.theme === "light" ? "dark" : "light";
+          html.dataset.theme = newTheme;
+          localStorage.setItem("theme", newTheme);
+          updateThemeIcon(newTheme);
+        });
+      }
+
+      function updateThemeIcon(theme) {
+        if (themeToggle) {
+          // Add smooth rotation to icon switch
+          themeToggle.style.transform = "rotate(180deg)";
+          setTimeout(() => {
+            themeToggle.innerHTML = theme === "light" ? 
+              '<i class="fas fa-moon"></i>' : 
+              '<i class="fas fa-sun"></i>';
+            themeToggle.style.transform = "rotate(0deg)";
+          }, 150);
+        }
+      }
+
+      // Smooth scroll for nav links (Fall back for older browsers)
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", (e) => {
+          e.preventDefault();
+          const target = document.querySelector(anchor.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        });
+      });
+
+      // Modal Logic
+      const modal = document.getElementById('certModal');
+      const modalImg = document.getElementById('modalImage');
+      const closeModal = document.querySelector('.close-modal');
+
+      if (closeModal) {
+        closeModal.addEventListener('click', () => {
+          modal.style.display = 'none';
+          document.body.style.overflow = 'auto'; 
+        });
+      }
+
+      if (modal) {
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+          }
+        });
+      }
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal && modal.style.display === 'block') {
+          modal.style.display = 'none';
+          document.body.style.overflow = 'auto';
+        }
+      });
+
+      // Global function so onclick on HTML elements works
+      window.openModal = function(cardElement) {
+        const imgSrc = cardElement.querySelector('img').src;
+        const imgAlt = cardElement.querySelector('img').alt;
+        
+        modalImg.src = imgSrc;
+        modalImg.alt = imgAlt;
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden'; // prevent background scrolling
+      }
+    });
+  </script>
 </body>
 </html>
