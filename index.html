@@ -117,6 +117,7 @@
       color: var(--header-text);
       font-weight: 500;
       transition: color 0.3s ease;
+      font-size: 0.95rem; /* Slightly smaller to fit more links */
     }
 
     .nav-links a:hover {
@@ -227,6 +228,7 @@
       font-weight: 600;
       transition: background 0.3s ease, transform 0.2s ease, color 0.3s ease;
       border: 1px solid var(--primary);
+      cursor: pointer;
     }
 
     .btn:hover {
@@ -332,7 +334,7 @@
       margin-top: 1.5rem;
     }
 
-    /* Certifications Grid */
+    /* Certifications/Internships/Trainings Grid */
     .cert-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -374,6 +376,26 @@
       font-weight: 600;
       flex-shrink: 0;
       flex-grow: 0; /* Ensures the text box never stretches vertically */
+    }
+
+    /* See More Certificates/Items */
+    .hidden-item {
+      display: none;
+    }
+
+    .hidden-item.show {
+      display: flex;
+      animation: fadeInItem 0.5s ease;
+    }
+
+    @keyframes fadeInItem {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .see-more-container {
+      text-align: center;
+      margin-top: 2.5rem;
     }
 
     /* Resume Section */
@@ -506,6 +528,16 @@
     }
 
     /* Mobile Responsiveness */
+    @media (max-width: 992px) {
+      /* Adjust nav links for medium screens to avoid crowding */
+      .nav-links {
+        gap: 1rem;
+      }
+      .nav-links a {
+        font-size: 0.9rem;
+      }
+    }
+
     @media (max-width: 768px) {
       .hamburger {
         display: block;
@@ -535,6 +567,11 @@
         box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
         height: auto;
         border-bottom: 1px solid var(--border);
+        gap: 1.5rem; /* Reset gap for mobile menu */
+      }
+
+      .nav-links a {
+          font-size: 1.1rem; /* Larger font for mobile menu */
       }
 
       .nav-links.active {
@@ -589,7 +626,9 @@
         <div class="nav-links">
           <a href="#about" aria-label="About section">About</a>
           <a href="#projects" aria-label="Projects section">Projects</a>
+          <a href="#internships" aria-label="Internships section">Internships</a>
           <a href="#certifications" aria-label="Certifications section">Certifications</a>
+          <a href="#trainings" aria-label="Trainings section">Trainings</a>
           <a href="#resume" aria-label="Resume section">Resume</a>
           <a href="#contact" aria-label="Contact section">Contact</a>
           <button id="theme-toggle" aria-label="Toggle theme">
@@ -668,10 +707,63 @@
       </div>
     </section>
 
+    <section class="section certifications reveal" id="internships">
+      <div class="container">
+        <h2>Internships</h2>
+        
+        <div class="cert-grid">
+          <!-- Visible Internships (First 6 placeholders) -->
+          <div class="cert-card" onclick="openModal(this)">
+            <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=800&auto=format&fit=crop" alt="Internship Certificate 1" onerror="this.src='https://via.placeholder.com/400x250?text=Internship+1'">
+            <h3>Software Development Intern at Company X</h3>
+          </div>
+          <div class="cert-card" onclick="openModal(this)">
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop" alt="Internship Certificate 2" onerror="this.src='https://via.placeholder.com/400x250?text=Internship+2'">
+            <h3>AI/ML Research Intern at Company Y</h3>
+          </div>
+          <div class="cert-card" onclick="openModal(this)">
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop" alt="Internship Certificate 3" onerror="this.src='https://via.placeholder.com/400x250?text=Internship+3'">
+            <h3>Full Stack Intern at Company Z</h3>
+          </div>
+          <div class="cert-card" onclick="openModal(this)">
+            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop" alt="Internship Certificate 4" onerror="this.src='https://via.placeholder.com/400x250?text=Internship+4'">
+            <h3>Data Science Intern at Org A</h3>
+          </div>
+          <div class="cert-card" onclick="openModal(this)">
+            <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=800&auto=format&fit=crop" alt="Internship Certificate 5" onerror="this.src='https://via.placeholder.com/400x250?text=Internship+5'">
+            <h3>Frontend Developer Intern at Startup B</h3>
+          </div>
+          <div class="cert-card" onclick="openModal(this)">
+            <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?q=80&w=800&auto=format&fit=crop" alt="Internship Certificate 6" onerror="this.src='https://via.placeholder.com/400x250?text=Internship+6'">
+            <h3>Backend Engineering Intern at Company C</h3>
+          </div>
+
+          <!-- Hidden Internships -->
+          <div class="cert-card hidden-item internship-item" onclick="openModal(this)">
+            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=800&auto=format&fit=crop" alt="Internship Certificate 7" onerror="this.src='https://via.placeholder.com/400x250?text=Internship+7'">
+            <h3>Upcoming Internship Title 1</h3>
+          </div>
+          <div class="cert-card hidden-item internship-item" onclick="openModal(this)">
+            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=800&auto=format&fit=crop" alt="Internship Certificate 8" onerror="this.src='https://via.placeholder.com/400x250?text=Internship+8'">
+            <h3>Upcoming Internship Title 2</h3>
+          </div>
+        </div>
+
+        <!-- See More Button Container for Internships -->
+        <div class="see-more-container">
+          <button class="btn see-more-btn" data-target="internship-item" data-section="internships">
+            <i class="fas fa-chevron-down"></i> See More
+          </button>
+        </div>
+      </div>
+    </section>
+
     <section class="section certifications reveal" id="certifications">
       <div class="container">
         <h2>Certifications</h2>
+        
         <div class="cert-grid">
+          <!-- Visible Certificates (First 6) -->
           <div class="cert-card" onclick="openModal(this)">
             <img src="assets/images/microsoft-cert.jpg" alt="Microsoft Certificate" onerror="this.src='https://via.placeholder.com/400x250?text=Certificate+Preview'">
             <h3>Microsoft Certified: Azure AI Fundamentals</h3>
@@ -696,6 +788,79 @@
             <img src="assets/images/aws-cert.jpg" alt="AWS Certificate" onerror="this.src='https://via.placeholder.com/400x250?text=AWS+Certificate'">
             <h3>AWS Cloud Practitioner Essentials</h3>
           </div>
+
+          <!-- Hidden Certificates -->
+          <div class="cert-card hidden-item cert-item" onclick="openModal(this)">
+            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop" alt="Upcoming Certificate 1" onerror="this.src='https://via.placeholder.com/400x250?text=New+Certificate+1'">
+            <h3>Upcoming Certification Title 1</h3>
+          </div>
+          <div class="cert-card hidden-item cert-item" onclick="openModal(this)">
+            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop" alt="Upcoming Certificate 2" onerror="this.src='https://via.placeholder.com/400x250?text=New+Certificate+2'">
+            <h3>Upcoming Certification Title 2</h3>
+          </div>
+          <div class="cert-card hidden-item cert-item" onclick="openModal(this)">
+            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop" alt="Upcoming Certificate 3" onerror="this.src='https://via.placeholder.com/400x250?text=New+Certificate+3'">
+            <h3>Upcoming Certification Title 3</h3>
+          </div>
+        </div>
+
+        <!-- See More Button Container for Certifications -->
+        <div class="see-more-container">
+          <button class="btn see-more-btn" data-target="cert-item" data-section="certifications">
+            <i class="fas fa-chevron-down"></i> See More
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section certifications reveal" id="trainings">
+      <div class="container">
+        <h2>Hands-on Trainings</h2>
+        
+        <div class="cert-grid">
+          <!-- Visible Trainings (First 6 placeholders) -->
+          <div class="cert-card" onclick="openModal(this)">
+            <img src="https://images.unsplash.com/photo-1531496730074-83b638c0a7ac?q=80&w=800&auto=format&fit=crop" alt="Training Certificate 1" onerror="this.src='https://via.placeholder.com/400x250?text=Training+1'">
+            <h3>Web Development Bootcamp</h3>
+          </div>
+          <div class="cert-card" onclick="openModal(this)">
+            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop" alt="Training Certificate 2" onerror="this.src='https://via.placeholder.com/400x250?text=Training+2'">
+            <h3>Advanced Python Programming</h3>
+          </div>
+          <div class="cert-card" onclick="openModal(this)">
+            <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=800&auto=format&fit=crop" alt="Training Certificate 3" onerror="this.src='https://via.placeholder.com/400x250?text=Training+3'">
+            <h3>Cloud Computing Workshop</h3>
+          </div>
+          <div class="cert-card" onclick="openModal(this)">
+            <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=800&auto=format&fit=crop" alt="Training Certificate 4" onerror="this.src='https://via.placeholder.com/400x250?text=Training+4'">
+            <h3>Data Structures & Algorithms</h3>
+          </div>
+          <div class="cert-card" onclick="openModal(this)">
+            <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=800&auto=format&fit=crop" alt="Training Certificate 5" onerror="this.src='https://via.placeholder.com/400x250?text=Training+5'">
+            <h3>Machine Learning Practical Approach</h3>
+          </div>
+          <div class="cert-card" onclick="openModal(this)">
+            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=800&auto=format&fit=crop" alt="Training Certificate 6" onerror="this.src='https://via.placeholder.com/400x250?text=Training+6'">
+            <h3>Cybersecurity Fundamentals</h3>
+          </div>
+
+          <!-- Hidden Trainings -->
+          <div class="cert-card hidden-item training-item" onclick="openModal(this)">
+            <img src="https://images.unsplash.com/photo-1515378960530-7c0da622941f?q=80&w=800&auto=format&fit=crop" alt="Training Certificate 7" onerror="this.src='https://via.placeholder.com/400x250?text=Training+7'">
+            <h3>Upcoming Training Title 1</h3>
+          </div>
+          <div class="cert-card hidden-item training-item" onclick="openModal(this)">
+            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=800&auto=format&fit=crop" alt="Training Certificate 8" onerror="this.src='https://via.placeholder.com/400x250?text=Training+8'">
+            <h3>Upcoming Training Title 2</h3>
+          </div>
+        </div>
+
+        <!-- See More Button Container for Trainings -->
+        <div class="see-more-container">
+          <button class="btn see-more-btn" data-target="training-item" data-section="trainings">
+            <i class="fas fa-chevron-down"></i> See More
+          </button>
         </div>
       </div>
     </section>
@@ -851,6 +1016,46 @@
           const target = document.querySelector(anchor.getAttribute("href"));
           if (target) {
             target.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        });
+      });
+
+      // See More Logic for multiple sections
+      const seeMoreBtns = document.querySelectorAll('.see-more-btn');
+
+      seeMoreBtns.forEach(btn => {
+        // Find how many hidden items belong to this specific button's section
+        const targetClass = btn.getAttribute('data-target');
+        const hiddenItems = document.querySelectorAll(`.${targetClass}`);
+        
+        // If there are no hidden items for this section, hide the button
+        if(hiddenItems.length === 0) {
+          btn.parentElement.style.display = 'none';
+        }
+
+        let isShowingMore = false;
+
+        btn.addEventListener('click', () => {
+          const sectionId = btn.getAttribute('data-section');
+          isShowingMore = !isShowingMore;
+          
+          hiddenItems.forEach(item => {
+            if (isShowingMore) {
+              item.classList.add('show');
+            } else {
+              item.classList.remove('show');
+            }
+          });
+
+          if (isShowingMore) {
+            btn.innerHTML = '<i class="fas fa-chevron-up"></i> See Less';
+          } else {
+            btn.innerHTML = '<i class="fas fa-chevron-down"></i> See More';
+            // Smooth scroll back to top of the specific section when closing
+            const sectionEl = document.getElementById(sectionId);
+            if(sectionEl) {
+                sectionEl.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
           }
         });
       });
