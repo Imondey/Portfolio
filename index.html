@@ -418,29 +418,40 @@
     
     .contact-links {
       display: flex;
-      flex-direction: column;
-      gap: 1rem;
+      flex-direction: row;
+      justify-content: center;
+      gap: 1.5rem;
       align-items: center;
       margin-top: 2rem;
     }
     
     .contact-links a {
-      font-size: 1.1rem;
       display: flex;
       align-items: center;
-      gap: 0.75rem;
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
-      transition: background 0.3s;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
     }
     
     .contact-links a:hover {
-      background: rgba(37, 99, 235, 0.1);
+      background: var(--primary);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .contact-links a:hover i {
+      color: var(--white);
     }
     
     .contact i {
       color: var(--primary);
-      font-size: 1.5rem;
+      font-size: 1.75rem;
+      transition: color 0.3s ease;
     }
 
     /* Footer */
@@ -880,14 +891,14 @@
         <h2>Contact</h2>
         <p>Let's build something amazing together!</p>
         <div class="contact-links">
-          <a href=https://mail.google.com/mail/?view=cm&fs=1&to=yourgmail@gmail.com" target="_blank">
-            <i class="fas fa-envelope"></i> imondey2004@gmail.com
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=imondey2004@gmail.com" target="_blank" aria-label="Send me an email">
+            <i class="fas fa-envelope"></i>
           </a>
-          <a href="https://github.com/Imondey" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-github"></i> github.com/Imondey
+          <a href="https://github.com/Imondey" target="_blank" rel="noopener noreferrer" aria-label="Visit my GitHub">
+            <i class="fab fa-github"></i>
           </a>
-          <a href="https://www.linkedin.com/in/imon-dey-4223502a8/" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-linkedin"></i> linkedin.com/in/imon-dey
+          <a href="https://www.linkedin.com/in/imon-dey-4223502a8/" target="_blank" rel="noopener noreferrer" aria-label="Visit my LinkedIn">
+            <i class="fab fa-linkedin"></i>
           </a>
         </div>
       </div>
